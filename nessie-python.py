@@ -9,6 +9,11 @@ r = requests.get(credentials.base_url + "atms", params=atm_payload)
 
 print "ATM GET: " + str(r.status_code)
 
+next_page_url = r.json()['paging']['next']
+r = requests.get(credentials.base_url + next_page_url[1:])
+
+print "ATM Next Page GET: " + str(r.status_code)
+
 # /Customer
 key_payload = {'key': credentials.api_key}
 r = requests.get(credentials.base_url + "customers", params=key_payload)
